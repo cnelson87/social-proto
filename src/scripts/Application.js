@@ -5,10 +5,7 @@
  */
 
 var AppConfig				= require('config/AppConfig');
-var AppEvents				= require('events/AppEvents');
-var PubSub					= require('utilities/PubSub');
 var AjaxGet					= require('utilities/AjaxGet');
-var BreakpointChange		= require('utilities/BreakpointChange');
 var templateSocialItems 	= require('../templates/social-items.hbs');
 
 
@@ -17,10 +14,6 @@ var Application = {
 	initialize: function() {
 		//console.log('Application:initialize');
 
-		// this.$window = $(window);
-		// this.$document = $(document);
-		// this.$html = $('html');
-		// this.$body = $('body');
 		this.$el = $('#social-app');
 		this.$list = this.$el.find('.social-listing');
 		this.$btn = this.$el.find('.btn-load-more');
@@ -29,15 +22,11 @@ var Application = {
 
 		this.template = templateSocialItems;
 
-		//this.ajaxUrl = '/_api/social-items.json';
 		this.ajaxUrl = AppConfig.ajaxUrl + '?limit=' + AppConfig.ajaxLimit;// + '&network=facebook';
-		//this.ajaxUrl = 'http://api.massrelevance.com/ill_adelphia/john-deere.json?limit=6';
 
 		this.startId = null;
 
 		this.userInteraction = false;
-
-		//BreakpointChange();
 
 		this.bindEvents();
 
@@ -45,6 +34,16 @@ var Application = {
 
 		this.getContent();
 
+	},
+
+	bindEvents: function() {
+		this.$btn.on('click', $.proxy(this.__onBtnClick, this));
+	},
+
+	__onBtnClick: function(event) {
+		event.preventDefault();
+		this.userInteraction = true;
+		this.getContent();
 	},
 
 	initMasonry: function() {
@@ -63,28 +62,55 @@ var Application = {
 
 		$.when(AjaxGet(ajaxUrl, 'jsonp', true)).done(function(response) {
 			//console.log(response);
-			this.render(response);
+			this.processData(response);
 		}.bind(this)).fail(function() {
 			alert('error with ajax call');
 		}.bind(this));
 
 	},
 
-	bindEvents: function() {
-		// PubSub.on(AppEvents.BREAKPOINT_CHANGE, this.onBreakpointChange, this);
-		this.$btn.on('click', $.proxy(this.__onBtnClick, this));
-	},
+	processData: function(data) {
 
-	__onBtnClick: function(event) {
-		event.preventDefault();
-		this.userInteraction = true;
-		this.getContent();
-	},
+		for (var i = 0, len = data.length; i < len; i++) {
 
-	// onBreakpointChange: function(params) {
-	// 	console.log('onBreakpointChange',params);
-	// 	this.$window.trigger('breakpointChange', [params]);
-	// },
+			// Facebook
+			if (data[i].network === 'facebook') {
+				data[i].userName = data[i].from.name;
+				data[i].postHref = 'https://www.facebook.com/' + data[i].entity_id;
+				data[i].contentText = data[i].message;
+				data[i].imgSrc = data[i].picture || null;
+			}
+
+			// Twitter
+			if (data[i].network === 'twitter') {
+				data[i].userName = data[i].user.name;
+				data[i].postHref = 'https://twitter.com/' + data[i].user.screen_name + '/status/' + data[i].entity_id;
+				data[i].contentText = data[i].text;
+				data[i].imgSrc = !!(data[i].entities.media && data[i].entities.media[0].media_url) ? data[i].entities.media[0].media_url : null;
+			}
+
+			// Instagram
+			if (data[i].network === 'instagram') {
+				data[i].userName = data[i].user.full_name;
+				data[i].postHref = data[i].link;
+				data[i].contentText = data[i].caption.text;
+				data[i].imgSrc = data[i].images.low_resolution.url || null;
+			}
+
+			// Pinterest
+			if (data[i].network === 'rss') {
+				data[i].network = 'pinterest';
+				data[i].userName = data[i].author;
+				data[i].postHref = data[i].link;
+				data[i].contentText = $(data[i].description).text();
+				data[i].imgSrc = $(data[i].description).find('img').attr('src') || null;
+			}
+
+		}
+
+		this.render(data);
+
+	},
 
 	render: function(data) {
 		//console.log('Application:render');
@@ -100,6 +126,7 @@ var Application = {
 		}
 
 		this.$list.append(items).imagesLoaded(function() {
+			$items.removeClass('loading');
 			this.$list.masonry('appended', items);
 			if (this.userInteraction) {
 				$firstItem.find('> h3:first-child').focus();

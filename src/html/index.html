@@ -1,39 +1,51 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
-@@include('head.html', {})
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<title>@@meta-title</title>
+
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" />
+	<link rel="stylesheet" href="/_ui/css/@@file-name.css" />
+
+	<script src="/_ui/js/vendor.js"></script>
+	<script src="/_ui/js/@@file-name.js"></script>
 </head>
 <body>
 
 
-@@include('header.html', {})
-
-
-<section id="content">
-	<div class="content-inner">
-
-		<h1>@@meta-title</h1>
-
-		<div id="social-app">
-
-			<div class="social-listing">
-				<!-- //content loaded via Ajax -->
-			</div>
-			<button class="btn-load-more">Show Me More</button>
+	<header id="header">
+		<div class="header-inner">
 
 		</div>
-
-	</div>
-</section>
+	</header>
 
 
-@@include('footer.html', {})
+	<section id="content">
+		<div class="content-inner">
+
+			<h1>@@meta-title</h1>
+
+			<div id="social-app">
+
+				<div class="social-listing">
+					<!-- //content loaded via Ajax -->
+				</div>
+				<button class="btn-load-more">Show Me More</button>
+
+			</div>
+
+		</div>
+	</section>
 
 
+	<footer id="footer">
+		<div class="footer-inner">
 
-<script>
-
-</script>
+		</div>
+	</footer>
 
 
 </body>

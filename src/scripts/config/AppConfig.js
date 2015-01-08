@@ -12,19 +12,11 @@ var AppConfig = {
 	siteUrl: window.location.origin,
 	isIE9: navigator.userAgent.indexOf('MSIE 9') != -1,
 
-	hasPointerEvents: Modernizr.pointerevents,
-	hasMediaQueries: Modernizr.mq('only all'),
 	hasTouch: Modernizr.touch,
 
-	ajaxUrl: 'http://api.massrelevance.com/ZachHenault/coffee.json',
-	ajaxLimit: 6,
-
-	breakpoints: {
-		1: 'mobile',
-		2: 'tablet',
-		3: 'desktop'
-	},
-	currentBreakpoint: null
+	// ajaxUrl: 'http://api.massrelevance.com/ZachHenault/coffee.json',
+	ajaxUrl: 'http://api.massrelevance.com/ill_adelphia/john-deere.json',
+	ajaxLimit: 6
 
 };
 
