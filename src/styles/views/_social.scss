@@ -1,0 +1,153 @@
+/*
+/* SOCIAL
+/*-----------------------------------------------------*/
+
+
+.social-listing {
+	width: 100%;
+	max-width: 480px;
+	margin: 0 auto 20px auto;
+	position: relative;
+	@include clearfix();
+	@include prefix(box-sizing, border-box);
+
+	.grid-cell {
+		float: left;
+		width: 100%;
+		background: #fff;
+		margin: 0 0 20px 0;
+		position: relative;
+		@include prefix(box-sizing, border-box);
+
+		> h3:first-child {
+			width: 100%;
+			height: 1px;
+			text-indent: 200%;
+			overflow: hidden;
+			position: absolute;
+		}
+
+		// testing focus
+		// > h3:first-child:focus + a.social-icon {
+		// 	outline: 1px solid red;
+		// }
+
+		> a.social-icon {
+			display: block;
+			width: 20px;
+			height: 20px;
+			background: no-repeat 0 0;
+			//opacity: 0.8;
+			position: absolute;
+			right: 6px;
+			top: 6px;
+			&:hover, &:focus {
+				opacity: 0.8;
+			}
+			&.icon-facebook {
+				background-image: url('#{$image-path}/icon-facebook.png');
+			}
+			&.icon-twitter {
+				background-image: url('#{$image-path}/icon-twitter.png');
+			}
+			&.icon-instagram {
+				background-image: url('#{$image-path}/icon-instagram.png');
+			}
+			&.icon-pinterest {
+				background-image: url('#{$image-path}/icon-pinterest.png');
+			}
+		}
+
+		> div.content {
+			overflow-x: hidden;
+			padding: 20px 32px 20px 16px;
+			> p {
+				color: #333;
+				font-size: 12px;
+				line-height: 16px;
+				font-weight: bold;
+				margin: 0 0 16px 0;
+			}
+		}
+
+		> div.media {
+			//margin-top: -8px;
+			> a {
+				display: block;
+				> img {
+					display: block;
+					width: 100%;
+					height: auto;
+				}
+			}
+		}
+
+	}
+
+}
+
+.btn-load-more {
+	cursor: pointer;
+	display: block;
+	width: 100%;
+	max-width: 480px;
+	color: #fff;
+	font-family: Arial, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	letter-spacing: 1px;
+	line-height: 12px;
+	text-align: center;
+	text-transform: uppercase;
+	background: #aaa;
+	border: 0;
+	margin: 0 auto;
+	padding: 6px 0;
+
+	&:hover, &:focus {
+		background: #bbb;
+	}
+
+	&:after {
+		content: "";
+		display: inline-block;
+		width: 10px;
+		height: 8px;
+		background: url('#{$image-path}/arrow-down.png') no-repeat 0 0;
+		margin-left: 0.5em;
+	}
+
+}
+
+
+// TABLET
+@include respond-to(tablet) {
+	.social-listing {
+		width: 100%;
+		max-width: 100%;
+		.grid-cell {
+			width: 300px;
+			margin: 0 10px 20px 10px;
+		}
+	}
+	.btn-load-more {
+		width: 160px;
+	}
+}
+
+
+// DESKTOP
+@include respond-to(desktop) {
+	.social-listing {
+		width: 100%;
+		max-width: 100%;
+		.grid-cell {
+			width: 300px;
+			margin: 0 10px 20px 10px;
+		}
+	}
+	.btn-load-more {
+		width: 160px;
+	}
+}
+

@@ -1,0 +1,102 @@
+/*
+/* LAYOUT
+/*-----------------------------------------------------*/
+
+html {
+	height: 100%;
+	min-height: 100%;
+}
+
+body {
+	//height: 100%;
+	min-height: 100%;
+	position: relative;
+}
+
+#header {
+	width: 100%;
+	height: $header-height;
+	background: #454545;
+	border-bottom: 20px solid #fff;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 3;
+	@include prefix(box-sizing, border-box);
+
+	> .header-inner {
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+		position: relative;
+		@include prefix(box-sizing, border-box);
+	}
+
+}
+
+#footer {
+	width: 100%;
+	height: $footer-height;
+	background: #000;
+	border-top: 20px solid #fff;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+	@include prefix(box-sizing, border-box);
+
+	> .footer-inner {
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+		padding: 20px 0 0 0;
+		position: relative;
+		@include prefix(box-sizing, border-box);
+	}
+
+}
+
+#content {
+	width: 100%;
+	height: 100%;
+	padding: $header-height 0 $footer-height 0;
+	position: relative;
+	z-index: 1;
+	@include prefix(box-sizing, border-box);
+
+	> .content-inner {
+		width: 100%;
+		height: 100%;
+		min-height: calc(100vh - #{($header-height + $footer-height)}); //viewport height - header & footer
+		margin: 0 auto;
+		padding: 60px 0;
+		position: relative;
+		@include prefix(box-sizing, border-box);
+
+	}
+
+}
+
+
+@include respond-to(tablet) {
+
+	#header > .header-inner,
+	#footer > .footer-inner,
+	#content > .content-inner {
+		width: $tablet-width;
+	}
+
+}
+
+
+@include respond-to(desktop) {
+
+	#header > .header-inner,
+	#footer > .footer-inner,
+	#content > .content-inner {
+		width: $desktop-width;
+	}
+
+}

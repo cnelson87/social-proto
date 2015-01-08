@@ -1,0 +1,114 @@
+{{#each items}}
+	<div class="grid-cell post-{{network}}" data-id="{{id}}">
+
+
+		{{!-- Begin Facebook --}}
+		{{#compare network "facebook"}}
+
+			<h3 tabindex="-1">Facebook Post by {{user.username}}</h3>
+
+			<a class="social-icon icon-facebook" href="http://www.facebook.com/" target="_blank" title="Open Facebook in a new window"></a>
+
+			<div class="content">
+				<p>{{content}}</p>
+				<div class="cta">
+					<a href="#">link</a>
+					<a href="#">link</a>
+				</div>
+			</div>
+
+			{{#if media}}
+			<div class="media">
+				<a href="{{href}}" target="_blank">
+					<img src="{{src}}" alt="" />
+				</a>
+			</div>
+			{{/if}}
+
+		{{/compare}}
+		{{!-- End Facebook --}}
+
+
+		{{!-- Begin Twitter --}}
+		{{#compare network "twitter"}}
+
+			<h3 tabindex="-1">Twitter Post by {{user.screen_name}}</h3>
+
+			<a class="social-icon icon-twitter" href="http://www.twitter.com/" target="_blank" title="Open Twitter in a new window"></a>
+
+			<div class="content">
+				<p>{{text}}</p>
+				<div class="cta">
+					<a href="#">link</a>
+					<a href="#">link</a>
+				</div>
+			</div>
+
+			{{#if entities.media}}
+			<div class="media">
+				<a href="{{entities.media.0.expanded_url}}" target="_blank">
+					<img src="{{entities.media.0.media_url}}" alt="" />
+				</a>
+			</div>
+			{{/if}}
+
+		{{/compare}}
+		{{!-- End Twitter --}}
+
+
+		{{!-- Begin Instagram --}}
+		{{#compare network "instagram"}}
+
+			<h3 tabindex="-1">Instagram Post by {{user.username}}</h3>
+
+			<a class="social-icon icon-instagram" href="http://www.instagram.com/" target="_blank" title="Open Instagram in a new window"></a>
+
+			<div class="content">
+				<p>{{caption.text}}</p>
+				<div class="cta">
+					<a href="#">link</a>
+					<a href="#">link</a>
+				</div>
+			</div>
+
+			{{#if images.low_resolution}}
+			<div class="media">
+				<a href="{{link}}" target="_blank">
+					<img src="{{images.low_resolution.url}}" alt="" />
+				</a>
+			</div>
+			{{/if}}
+
+		{{/compare}}
+		{{!-- End Instagram --}}
+
+
+		{{!-- Begin Pinterest --}}
+		{{#compare network "pinterest"}}
+
+			<h3 tabindex="-1">Pinterest Post</h3>
+
+			<a class="social-icon icon-pinterest" href="http://www.pinterest.com/" target="_blank" title="Open Pinterest in a new window"></a>
+
+			<div class="content">
+				<p>{{content}}</p>
+				<div class="cta">
+					<a href="#">link</a>
+					<a href="#">link</a>
+				</div>
+			</div>
+
+			{{#if media}}
+			<div class="media">
+				<a href="{{href}}" target="_blank">
+					<img src="{{src}}" alt="" />
+				</a>
+			</div>
+			{{/if}}
+
+		{{/compare}}
+		{{!-- End Pinterest --}}
+
+
+	</div>
+{{/each}}

@@ -1,0 +1,487 @@
+/*
+/* FORM ELEMENTS
+/*-----------------------------------------------------*/
+
+/**
+/*	basic form elements
+/**/
+
+fieldset {
+	display: block;
+	width: auto;
+	margin-bottom: 1.5em;
+}
+
+legend {
+	display: none;
+}
+
+label, span.label {
+	display: inline-block;
+	color: $text-dark-gray;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 16px;
+	padding-top: 2px; /* matches input padding-top for vertical alignment */
+	span.sm {
+		font-size: 12px;
+		font-weight: normal;
+	}
+}
+label.disabled {
+	color: $text-light-gray;
+}
+
+output {
+	display: inline-block;
+	color: $text-dark-gray;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 16px;
+	padding-top: 2px; /* matches input padding-top for vertical alignment */
+}
+
+input, select, textarea, button {
+	color: $text-dark-gray;
+	font-family: Arial, sans-serif;
+	font-size: 13px;
+	line-height: 16px;
+	vertical-align: top;
+	background: none;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	@include prefix(box-sizing, border-box);
+}
+
+input:invalid,
+select:invalid,
+textarea:invalid {
+	box-shadow: none;
+	outline: 0;
+}
+
+::-webkit-input-placeholder {
+	color: $text-med-gray;
+	opacity: 1;
+}
+::-moz-placeholder {
+	color: $text-med-gray;
+	opacity: 1;
+}
+:-ms-input-placeholder {
+	color: $text-med-gray;
+	opacity: 1;
+}
+::input-placeholder {
+	color: $text-med-gray;
+	opacity: 1;
+}
+
+/* start text inputs, selects, textareas */
+
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=number],
+input[type=tel],
+input[type=url],
+textarea {
+	width: 140px;
+	height: 24px;
+	border: 1px solid $border-color-light;
+	border-radius: 3px;
+	padding: 2px;
+}
+
+select {
+	width: auto;
+	min-width: 80px;
+	max-width: 100%;
+	height: 24px;
+	border: 1px solid $border-color-light;
+	border-radius: 3px;
+	padding: 2px;
+	//@include prefix(appearance, none);
+}
+
+textarea {
+	width: 240px;
+	max-width: 100%;
+	height: 54px; // line-height x 3, + padding
+	border: 1px solid $border-color-light;
+	border-radius: 3px;
+	padding: 2px;
+}
+
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=number]:focus,
+input[type=tel]:focus,
+input[type=url]:focus,
+select:focus,
+textarea:focus {
+	border-color: $border-color-dark;
+	outline: none;
+}
+
+input[type=text][disabled],
+input[type=password][disabled],
+input[type=email][disabled],
+input[type=number][disabled],
+input[type=tel][disabled],
+input[type=url][disabled],
+input[type=text].disabled,
+input[type=password].disabled,
+input[type=email].disabled,
+input[type=number].disabled,
+input[type=tel].disabled,
+input[type=url].disabled,
+select[disabled], select.disabled,
+textarea[disabled], textarea.disabled {
+	color: #ccc;
+	border-color: $border-color-xlight;
+}
+
+input[type=text].invalid,
+input[type=password].invalid,
+input[type=email].invalid,
+input[type=number].invalid,
+input[type=tel].invalid,
+input[type=url].invalid,
+select.invalid,
+textarea.invalid {
+	border-color: $error-color;
+}
+
+input.input-med,
+select.input-med {
+	/* default */
+	width: 140px;
+}
+input.input-xshort,
+select.input-xshort {
+	width: 40px;
+	min-width: 40px;
+}
+input.input-short,
+select.input-short {
+	width: 80px;
+}
+input.input-long,
+select.input-long {
+	width: 240px;
+}
+input.input-xlong,
+select.input-xlong {
+	width: 360px;
+}
+input.input-auto,
+select.input-auto {
+	width: auto;
+	min-width: auto;
+}
+
+textarea.textarea-med {
+	width: 280px;
+	height: 70px; /* 16px * 4 line-height + 6px padding & border */
+}
+textarea.textarea-lrg {
+	width: 500px;
+	height: 102px; /* 16px * 6 line-height + 6px padding & border */
+}
+
+/* end text inputs, selects, textareas */
+
+/* start checkbox & radio inputs */
+
+input[type=checkbox],
+input[type=radio] {
+	/* setting exact size removes IE padding, makes uniform cross-browser */
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+	vertical-align: middle;
+
+	& + label {
+		padding-top: 0;
+	}
+
+	&[disabled], &.disabled {
+		cursor: default;
+
+		& + label {
+			color: $text-light-gray;
+		}
+
+	}
+
+}
+
+/* end checkbox & radio inputs */
+
+/* start range input */
+
+input[type=range] {
+	width: 140px;
+	height: 24px;
+	cursor: pointer;
+
+	&[disabled], &.disabled {
+		cursor: default;
+	}
+
+}
+
+/* end range input */
+
+/* start buttons */
+
+input[type=submit],
+input[type=reset],
+input[type=button],
+button {
+	cursor: pointer;
+	min-width: 88px;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	vertical-align: middle;
+	background: #ccc;
+	border: 1px solid $border-color-dark;
+	border-radius: 3px;
+	padding: 4px 12px;
+	overflow: visible; // old IE width fix, no affect on other browsers
+	@include prefix(transition, 'color .2s, background-color .2s');
+
+	&:focus, &:hover {
+		background: #dedede;
+		outline: none;
+	}
+
+}
+
+input.btn, input.sm-btn,
+button.btn, button.sm-btn {
+	color: #fff;
+	background: #900;
+}
+input.alt-btn, input.sm-alt-btn,
+button.alt-btn, button.sm-alt-btn {
+	color: #900;
+	background: #fff;
+	border-color: #900;
+}
+input.sm-btn, input.sm-alt-btn,
+button.sm-btn, button.sm-alt-btn {
+	min-width: auto;
+	font-size: 11px;
+	font-weight: normal;
+	padding: 1px 8px;
+}
+input.btn:focus, input.btn:hover,
+input.sm-btn:focus, input.sm-btn:hover,
+button.btn:focus, button.btn:hover,
+button.sm-btn:focus, button.sm-btn:hover {
+	background: #c00;
+}
+input.alt-btn:focus, input.alt-btn:hover,
+input.sm-alt-btn:focus, input.sm-alt-btn:hover
+button.alt-btn:focus, button.alt-btn:hover,
+button.sm-alt-btn:focus, button.sm-alt-btn:hover {
+	color: #333;
+	background: #fff;
+	border-color: #333;
+}
+
+/* end buttons */
+
+/* start misc */
+
+.form-note { /* note next to an input field */
+	display: inline-block;
+	color: $text-med-gray;
+	font-size: 11px;
+	line-height: 15px;
+	margin: 5px 0 0 5px;
+}
+.form-message { /* message below an input field */
+	display: block;
+	color: $text-med-gray;
+	font-size: 11px;
+	line-height: 15px;
+	margin-top: 5px;
+}
+
+input + input, input + select, input + textarea, input + output,
+select + input, select + select, select + textarea, select + output,
+textarea + input, textarea + select, textarea + textarea, textarea + output {
+	margin-left: 5px;
+}
+
+/* end misc */
+
+/*** /basic form elements ***/
+
+
+/**
+/*	fieldset styles
+/**/
+
+/* text inputs, selects, textareas */
+
+ol.horizontal-fields, ul.horizontal-fields,
+ol.vertical-fields, ul.vertical-fields,
+ol.inline-fields, ul.inline-fields,
+ol.column-fields, ul.column-fields {
+	list-style: none;
+	margin: 0;
+}
+	.horizontal-fields > li,
+	.vertical-fields > li,
+	.inline-fields > li,
+	.column-fields > li {
+		min-height: 24px; /* matches input height */
+		margin: 0 0 8px 0;
+	}
+
+	/* side-by-side label / input */
+	.horizontal-fields > li > label,
+	.horizontal-fields > li > span.label {
+		width: 120px;
+		text-align: right;
+		margin-right: 5px;
+	}
+	.horizontal-fields.label-width-short > li > label,
+	.horizontal-fields.label-width-short > li > span.label,
+	.horizontal-fields > li > label.width-short,
+	.horizontal-fields > li > span.label.width-short {
+		width: 80px;
+	}
+	.horizontal-fields.label-width-long > li > label,
+	.horizontal-fields.label-width-long > li > span.label,
+	.horizontal-fields > li > label.width-long,
+	.horizontal-fields > li > span.label.width-short {
+		width: 160px;
+	}
+	.horizontal-fields.label-width-auto > li > label,
+	.horizontal-fields.label-width-auto > li > span.label,
+	.horizontal-fields > li > label.width-auto,
+	.horizontal-fields > li > span.label.width-short {
+		width: auto;
+	}
+	.horizontal-fields.label-align-left > li > label,
+	.horizontal-fields.label-align-left > li > span.label,
+	.horizontal-fields > li > label.align-left,
+	.horizontal-fields > li > span.label.align-left {
+		text-align: left;
+	}
+
+	/* line-up .form-message with text inputs (matches label width + margin) */
+	.horizontal-fields div.form-message {
+		margin-left: 130px; /* matches label width + margin */
+	}
+	.horizontal-fields.label-width-short div.form-message {
+		margin-left: 90px;
+	}
+	.horizontal-fields.label-width-long div.form-message {
+		margin-left: 170px;
+	}
+
+	/* stacked label / input */
+	.vertical-fields > li > label,
+	.vertical-fields > li > span.label {
+		display: block;
+		margin: 0 0 2px 0;
+	}
+
+	.inline-fields > li {
+		display: inline-block;
+		margin-right: 10px;
+	}
+	.inline-fields > li.full-width {
+		display: block;
+		margin-right: 0;
+	}
+	.inline-fields > li > label,
+	.inline-fields > li > span.label {
+		margin-right: 5px;
+	}
+
+	/* label / input in pseudo columns */
+	.column-fields > li {
+		width: 50%;
+		padding-right: 1em;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing:border-box;
+		-o-box-sizing:border-box;
+		box-sizing: border-box;
+	}
+	.column-fields > li:nth-child(odd) {
+		float: left;
+		clear: left;
+	}
+	.column-fields > li:nth-child(even) {
+		float: right;
+		clear: right;
+	}
+
+/* checkbox and radio inputs */
+
+/* use with .vertical-fields or .inline-fields */
+ol.cb-rb-fields, ul.cb-rb-fields {
+	list-style: none;
+	margin: 0;
+}
+	.cb-rb-fields > li {
+		min-height: 18px;
+		margin: 0 0 8px 0;
+	}
+	.cb-rb-fields input[type=checkbox],
+	.cb-rb-fields input[type=radio] {
+		float: left;
+	}
+	.cb-rb-fields > li > label {
+		display: block;
+		margin: 0 0 0 24px;
+	}
+
+	.vertical-fields.cb-rb-fields > li > label {
+		margin: 0 0 8px 20px;
+	}
+
+	.inline-fields.cb-rb-fields > li {
+		display: inline-block;
+		margin-right: 10px;
+	}
+
+	/* line-up nested .cb-rb-fields with text inputs (matches label width + margin) */
+	.horizontal-fields .cb-rb-fields {
+		display: inline-block;
+		vertical-align: top;
+		margin: 2px 0 -8px 0;
+	}
+ 
+	.horizontal-fields > li > .cb-rb-fields:first-child {
+		margin-left: 128px;
+	}
+	.horizontal-fields.label-width-short > li > .cb-rb-fields:first-child {
+		margin-left: 88px;
+	}
+	.horizontal-fields.label-width-long > li > .cb-rb-fields:first-child {
+		margin-left: 168px;
+	}
+
+/* fieldset/div wrapper for form buttons */
+.form-btns {
+	clear: both;
+	border-top: 1px solid $border-color-med;
+	margin-bottom: 1.5em;
+	padding-top: 1.0em;
+}
+
+/*** /fieldset styles ***/
