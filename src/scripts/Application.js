@@ -75,34 +75,34 @@ var Application = {
 
 			// Facebook
 			if (data[i].network === 'facebook') {
-				data[i].userName = data[i].from.name;
+				data[i].userName = data[i].from.name || null;
 				data[i].postHref = 'https://www.facebook.com/' + data[i].facebook_id;
-				data[i].contentText = data[i].message;
+				data[i].contentText = data[i].message || null;
 				data[i].imgSrc = data[i].picture || null;
 			}
 
 			// Twitter
 			if (data[i].network === 'twitter') {
-				data[i].userName = data[i].user.name;
+				data[i].userName = data[i].user.name || null;
 				data[i].postHref = 'https://twitter.com/' + data[i].user.screen_name + '/status/' + data[i].id_str;
-				data[i].contentText = data[i].text;
+				data[i].contentText = data[i].text || null;
 				data[i].imgSrc = !!(data[i].entities.media && data[i].entities.media[0].media_url) ? data[i].entities.media[0].media_url : null;
 			}
 
 			// Instagram
 			if (data[i].network === 'instagram') {
-				data[i].userName = data[i].user.full_name;
+				data[i].userName = data[i].user.full_name || null;
 				data[i].postHref = data[i].link;
-				data[i].contentText = data[i].caption.text;
+				data[i].contentText = data[i].caption.text || null;
 				data[i].imgSrc = data[i].images.low_resolution.url || null;
 			}
 
 			// Pinterest
 			if (data[i].network === 'rss') {
 				data[i].network = 'pinterest';
-				data[i].userName = data[i].author;
+				data[i].userName = data[i].author || null;
 				data[i].postHref = data[i].link;
-				data[i].contentText = $(data[i].description).text();
+				data[i].contentText = $(data[i].description).text() || null;
 				data[i].imgSrc = $(data[i].description).find('img').attr('src') || null;
 			}
 

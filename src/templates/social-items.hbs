@@ -5,7 +5,7 @@
 		{{!-- Begin Facebook --}}
 		{{#compare network "facebook"}}
 
-			<h3 tabindex="-1">Facebook Post by {{userName}}</h3>
+			<h3 tabindex="-1">Facebook Post{{#if userName}} by {{userName}}{{/if}}</h3>
 
 			<a class="social-icon icon-facebook" href="{{postHref}}"
 				target="_blank" title="Open Facebook post in a new window"></a>
@@ -13,10 +13,12 @@
 			<div class="content">
 				{{#if contentText}}<p>{{contentText}}</p>{{/if}}
 				<div class="cta">
-					<a class="action-icon icon-share" target="_blank" title="Share"
-						href="https://www.facebook.com/{{facebook_id}}/share"></a>
-					<a class="action-icon icon-comment" target="_blank" title="Comment"
+					<a class="action-icon icon-comment" target="_blank"
+						title="Comment on Facebook post - opens in a new window"
 						href="https://www.facebook.com/{{facebook_id}}/comments"></a>
+					<a class="action-icon icon-share" target="_blank"
+						title="Share Facebook post - opens in a new window"
+						href="https://www.facebook.com/{{facebook_id}}/share"></a>
 				</div>
 			</div>
 
@@ -35,7 +37,7 @@
 		{{!-- Begin Twitter --}}
 		{{#compare network "twitter"}}
 
-			<h3 tabindex="-1">Twitter Post by {{userName}}</h3>
+			<h3 tabindex="-1">Twitter Post{{#if userName}} by {{userName}}{{/if}}</h3>
 
 			<a class="social-icon icon-twitter" href="{{postHref}}"
 				target="_blank" title="Open Twitter post in a new window"></a>
@@ -43,11 +45,14 @@
 			<div class="content">
 				{{#if contentText}}<p>{{contentText}}</p>{{/if}}
 				<div class="cta">
-					<a class="action-icon icon-reply" target="_blank" title="Reply"
+					<a class="action-icon icon-reply" target="_blank"
+						title="Reply to Twitter post - opens in a new window"
 						href="https://twitter.com/intent/tweet?original_referer=&in_reply_to={{id_str}}"></a>
-					<a class="action-icon icon-retweet" target="_blank" title="Retweet"
+					<a class="action-icon icon-retweet" target="_blank"
+						title="Retweet Twitter post - opens in a new window"
 						href="https://twitter.com/intent/retweet?original_referer=&in_reply_to={{id_str}}&tweet_id={{id_str}}"></a>
-					<a class="action-icon icon-favorite" target="_blank" title="Favorite"
+					<a class="action-icon icon-favorite" target="_blank"
+						title="Favorite Twitter post - opens in a new window"
 						href="https://twitter.com/intent/favorite?original_referer=&in_reply_to={{id_str}}&tweet_id={{id_str}}"></a>
 				</div>
 			</div>
@@ -67,7 +72,7 @@
 		{{!-- Begin Instagram --}}
 		{{#compare network "instagram"}}
 
-			<h3 tabindex="-1">Instagram Post by {{userName}}</h3>
+			<h3 tabindex="-1">Instagram Post{{#if userName}} by {{userName}}{{/if}}</h3>
 
 			<a class="social-icon icon-instagram" href="{{postHref}}"
 				target="_blank" title="Open Instagram post in a new window"></a>
@@ -75,7 +80,9 @@
 			<div class="content">
 				{{#if contentText}}<p>{{contentText}}</p>{{/if}}
 				<div class="cta">
-					<a class="action-icon icon-like" target="_blank" title="Like" href="{{postHref}}"></a>
+					<a class="action-icon icon-like" target="_blank"
+						title="Like Instagram post - opens in a new window"
+						href="{{postHref}}"></a>
 				</div>
 			</div>
 
@@ -94,7 +101,7 @@
 		{{!-- Begin Pinterest --}}
 		{{#compare network "pinterest"}}
 
-			<h3 tabindex="-1">Pinterest Post</h3>
+			<h3 tabindex="-1">Pinterest Post{{#if userName}} by {{userName}}{{/if}}</h3>
 
 			<a class="social-icon icon-pinterest" href="{{postHref}}"
 				target="_blank" title="Open Pinterest post in a new window"></a>
