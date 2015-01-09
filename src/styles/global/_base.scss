@@ -49,7 +49,7 @@ a {
 	@include prefix(transition, 'color .2s, background-color .2s');
 }
 a:focus, a:hover {
-	color: $link-hover-color;
+	color: $link-color-active;
 	text-decoration: underline;
 }
 
@@ -88,14 +88,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-	color: $text-dark-gray;
-	font-family: 'Droid Sans', Arial, sans-serif;
 	font-size: 36px;
 	margin-bottom: 0.5em;
 }
 h2, .h2 {
-	color: $text-dark-gray;
-	font-family: 'Droid Sans', Arial, sans-serif;
 	font-size: 24px;
 	margin-bottom: 0.5em;
 }
@@ -138,7 +134,6 @@ q:before, q:after {
 	content: none;
 }
 blockquote {
-	color: $text-dark-gray;
 	font-size: 20px;
 	font-family: Georgia, Times, serif;
 	font-weight: normal;

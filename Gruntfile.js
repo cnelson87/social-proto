@@ -59,21 +59,10 @@ module.exports = function(grunt) {
 				options: {
 					preBundleCB: function(b) {
 						b.plugin(remapify, [
-							// // 'templates' alias no longer works with remapify 1.3.0
-							// {
-							// 	cwd: './src/templates',
-							// 	src: './**/*.hbs',
-							// 	expose: 'templates'
-							// },
 							{
 								cwd: './src/scripts/config',
 								src: './**/*.js',
 								expose: 'config'
-							},
-							{
-								cwd: './src/scripts/events',
-								src: './**/*.js',
-								expose: 'events'
 							},
 							{
 								cwd: './src/scripts/utilities',
@@ -94,11 +83,6 @@ module.exports = function(grunt) {
 								cwd: './src/scripts/views',
 								src: './**/*.js',
 								expose: 'views'
-							},
-							{
-								cwd: './src/scripts/widgets',
-								src: './**/*.js',
-								expose: 'widgets'
 							}
 						]);
 					},
@@ -141,9 +125,7 @@ module.exports = function(grunt) {
 					'<%= sourceVendor %>/modernizr.custom.min.js',
 					'<%= sourceVendor %>/jquery.min.js',
 					'<%= sourceVendor %>/masonry.pkgd.min.js',
-					'<%= sourceVendor %>/imagesloaded.pkgd.min.js',
-					'<%= sourceVendor %>/underscore.min.js',
-					'<%= sourceVendor %>/backbone.min.js'
+					'<%= sourceVendor %>/imagesloaded.pkgd.min.js'
 				],
 				dest: '<%= outputScripts %>/vendor.js'
 			}

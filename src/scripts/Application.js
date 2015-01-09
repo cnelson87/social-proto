@@ -76,7 +76,7 @@ var Application = {
 			// Facebook
 			if (data[i].network === 'facebook') {
 				data[i].userName = data[i].from.name;
-				data[i].postHref = 'https://www.facebook.com/' + data[i].entity_id;
+				data[i].postHref = 'https://www.facebook.com/' + data[i].facebook_id;
 				data[i].contentText = data[i].message;
 				data[i].imgSrc = data[i].picture || null;
 			}
@@ -84,7 +84,7 @@ var Application = {
 			// Twitter
 			if (data[i].network === 'twitter') {
 				data[i].userName = data[i].user.name;
-				data[i].postHref = 'https://twitter.com/' + data[i].user.screen_name + '/status/' + data[i].entity_id;
+				data[i].postHref = 'https://twitter.com/' + data[i].user.screen_name + '/status/' + data[i].id_str;
 				data[i].contentText = data[i].text;
 				data[i].imgSrc = !!(data[i].entities.media && data[i].entities.media[0].media_url) ? data[i].entities.media[0].media_url : null;
 			}

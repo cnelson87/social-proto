@@ -2,26 +2,13 @@
 // CONFIG VARS
 //-------------------------------------------------------
 
-// Namespace
-$namespace: "sopro";
-
 // Colors
-$text-primary: #010101;
-$text-dark-gray: #333;
-$text-med-gray: #999;
-$text-light-gray: #ccc;
-$link-color: #900;
-$link-hover-color: #c00;
-$error-color: #900;
-$border-color-dark: #333;
-$border-color-med: #999;
-$border-color-light: #ccc;
-$border-color-xlight: #dedede;
-
-$vendor-prefixes: webkit moz ms o spec;
+$text-primary: #333;
+$link-color: #c00;
+$link-color-active: #f00;
+$border-color: #333;
 
 $image-path: "../img";
-$font-path: "../fonts";
 
 // Breakpoints
 $mobile: 320px;
