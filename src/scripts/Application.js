@@ -22,7 +22,7 @@ var Application = {
 
 		this.template = templateSocialItems;
 
-		this.ajaxUrl = AppConfig.ajaxUrl + '?limit=' + AppConfig.ajaxLimit;// + '&network=facebook';
+		this.ajaxUrl = AppConfig.ajaxUrl + '?limit=' + AppConfig.ajaxLimit * 10 + '&network=facebook';
 
 		this.startId = null;
 
@@ -76,9 +76,16 @@ var Application = {
 			// Facebook
 			if (data[i].network === 'facebook') {
 				data[i].userName = data[i].from.name || null;
-				data[i].postHref = 'https://www.facebook.com/' + data[i].facebook_id;
+				//data[i].postHref = 'https://www.facebook.com/' + data[i].facebook_id;
+				data[i].postHref = 'https://www.facebook.com/' + data[i].facebook_id.split('_')[0] + '/posts/' + data[i].facebook_id.split('_')[1];
 				data[i].contentText = data[i].message || null;
 				data[i].imgSrc = data[i].picture || null;
+				data[i].isComment = (data[i].kind === 'comment');
+				data[i].isLink = (data[i].kind === 'link');
+				data[i].isPhoto = (data[i].kind === 'photo');
+				data[i].isStatus = (data[i].kind === 'status');
+				data[i].isVideo = (data[i].kind === 'video');
+				console.log(data[i].kind);
 			}
 
 			// Twitter
