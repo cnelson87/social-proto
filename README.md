@@ -1,6 +1,6 @@
-# Social-Proto
+# Social-Wall
 
-A Social media aggregator prototype.
+A social media wall aggregator.
 
 
 ## Install Base Dependencies
@@ -20,6 +20,5 @@ Please note that depending upon your setup you may need `sudo` permissions to ex
 
 ## Grunt Tasks
 
-- ~~`grunt bower`~~ `grunt bowercopy` : Command to copy JS libs into vendor folder
 - `grunt build` : Compile, concat, and minify the css and js, and copy assets
 - `grunt run` : Runs build and watch tasks

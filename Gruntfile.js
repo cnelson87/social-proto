@@ -16,15 +16,12 @@ module.exports = function(grunt) {
 		pkg				: pkg,
 		pkgName			: '<%= pkg.name %>',
 		pkgDesc			: '<%= pkg.description %>',
-		fileName		: '<%= pkg.namespace %>',
 		metaTitle		: '<%= pkg.title %>',
 		portNum			: '<%= pkg.portNumber %>',
 		lrPortNum		: '<%= pkg.livereloadPortNum %>',
 		// source file paths
 		sourcePath		: './src',
-		sourceData		: '<%= sourcePath %>/data',
 		sourceHTML		: '<%= sourcePath %>/html',
-		sourceIncludes	: '<%= sourcePath %>/html/_includes',
 		sourceImages	: '<%= sourcePath %>/images',
 		sourceScripts	: '<%= sourcePath %>/scripts',
 		sourceStyles	: '<%= sourcePath %>/styles',
@@ -32,7 +29,6 @@ module.exports = function(grunt) {
 		sourceVendor	: '<%= sourcePath %>/vendor',
 		// output file paths
 		sitePath		: './public',
-		outputData		: '<%= sitePath %>/_api',
 		outputAssets	: '<%= sitePath %>/_ui',
 		outputImages	: '<%= outputAssets %>/img',
 		outputScripts	: '<%= outputAssets %>/js',
@@ -55,7 +51,7 @@ module.exports = function(grunt) {
 		'browserify': {
 			compile: {
 				src: '<%= sourceScripts %>/initialize.js',
-				dest: '<%= outputScripts %>/<%= fileName %>.js',
+				dest: '<%= outputScripts %>/social-wall.js',
 				options: {
 					preBundleCB: function(b) {
 						b.plugin(remapify, [
@@ -70,19 +66,9 @@ module.exports = function(grunt) {
 								expose: 'utilities'
 							},
 							{
-								cwd: './src/scripts/collections',
+								cwd: './src/scripts/widgets',
 								src: './**/*.js',
-								expose: 'collections'
-							},
-							{
-								cwd: './src/scripts/models',
-								src: './**/*.js',
-								expose: 'models'
-							},
-							{
-								cwd: './src/scripts/views',
-								src: './**/*.js',
-								expose: 'views'
+								expose: 'widgets'
 							}
 						]);
 					},
@@ -97,11 +83,11 @@ module.exports = function(grunt) {
 
 		// Copy files and folders
 		'copy': {
-			data: {
+			html: {
 				files: [{
-					cwd: '<%= sourceData %>',
-					src: '**/*.json',
-					dest: '<%= outputData %>',
+					cwd: '<%= sourceHTML %>',
+					src: '**/*.html',
+					dest: '<%= sitePath %>',
 					expand: true
 				}]
 			},
@@ -128,25 +114,6 @@ module.exports = function(grunt) {
 					'<%= sourceVendor %>/imagesloaded.pkgd.min.js'
 				],
 				dest: '<%= outputScripts %>/vendor.js'
-			}
-		},
-
-		// Build static HTML pages with includes
-		'includereplace': {
-			dist: {
-				options: {
-					globals: {
-						"meta-title": "<%= metaTitle %>",
-						"file-name": "<%= fileName %>"
-					},
-					includesDir: '<%= sourceIncludes %>'
-				},
-				files: [{
-					src: ['**/*.html', '!_includes/*.html'],
-					dest: '<%= sitePath %>/',
-					expand: true,
-					cwd: '<%= sourceHTML %>/'
-				}]
 			}
 		},
 
@@ -179,7 +146,7 @@ module.exports = function(grunt) {
 				},
 				files: [{
 					src: '<%= sourceStyles %>/styles.scss',
-					dest: '<%= outputStyles %>/<%= fileName %>.css'
+					dest: '<%= outputStyles %>/social-wall.css'
 				}]
 			}
 		},
@@ -192,7 +159,11 @@ module.exports = function(grunt) {
 			},
 			html: {
 				files: '<%= sourceHTML %>/**/*.html',
-				tasks: ['includereplace']
+				tasks: ['copy:html']
+			},
+			images: {
+				files: '<%= sourceImages %>/**/*.*',
+				tasks: ['copy:images']
 			},
 			scripts: {
 				files: '<%= sourceScripts %>/**/*.js',
@@ -220,12 +191,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-include-replace');
-
 	
 
 	// Register custom tasks
-	grunt.registerTask('build', ['includereplace', 'sass', 'jshint', 'browserify', 'concat', 'copy']);
+	grunt.registerTask('build', ['copy', 'sass', 'concat', 'jshint', 'browserify']);
 	grunt.registerTask('run', ['build', 'connect', 'watch']);
 
 
