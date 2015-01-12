@@ -14,6 +14,9 @@ var Application = {
 	initialize: function() {
 		//console.log('Application:initialize');
 
+		this.$html = $('html');
+		this.$body = $('body');
+
 		if (AppConfig.isIE9) {this.$html.addClass('ie9');}
 
 		new SocialWall($('#social-app'), {dataUrl: AppConfig.dataUrl, dataLimit: AppConfig.dataLimit});

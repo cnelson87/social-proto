@@ -6,10 +6,10 @@
 .social-listing {
 	width: 100%;
 	max-width: 480px;
+	box-sizing: border-box;
 	margin: 0 auto 20px auto;
 	position: relative;
 	@include clearfix();
-	@include prefix(box-sizing, border-box);
 
 	a.social-icon {
 		display: inline-block;
@@ -66,9 +66,9 @@
 		float: left;
 		width: 100%;
 		background: #fff;
+		box-sizing: border-box;
 		margin: 0 0 20px 0;
 		position: relative;
-		@include prefix(box-sizing, border-box);
 
 		&.loading {
 			opacity: 0;
