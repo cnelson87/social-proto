@@ -88,9 +88,16 @@
 		}
 
 		> div.content {
-			padding: 20px 32px 20px 16px;
+			padding: 12px 16px 20px 16px;
+			> span.date {
+				display: block;
+				color: $text-light;
+				font-size: 10px;
+				line-height: 12px;
+				margin: 0 0 12px 0;
+			}
 			> p {
-				color: #333;
+				color: $text-primary;
 				font-size: 12px;
 				line-height: 16px;
 				font-weight: bold;

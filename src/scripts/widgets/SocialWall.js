@@ -108,11 +108,20 @@ SocialWall.prototype = {
 				this.facebookPostCount++;
 				data[i].postNum = this.facebookPostCount;
 				data[i].userName = data[i].from.name || null;
+				data[i].pubDate = data[i].created_time ? new Date(data[i].created_time) : null;
 				//data[i].postHref = 'https://www.facebook.com/' + data[i].facebook_id;
 				data[i].postHref = 'https://www.facebook.com/' + data[i].facebook_id.split('_')[0] + '/posts/' + data[i].facebook_id.split('_')[1];
 				data[i].contentText = data[i].message || null;
 				data[i].imgSrc = data[i].picture || null;
 				data[i].isVideo = (data[i].type === 'video');
+
+				// Add anchors to content
+				if (data[i].contentText) {
+					data[i].contentText = this.replaceURL(  data[i].contentText );
+					data[i].contentText = this.replaceHash( data[i].contentText, 'https://www.facebook.com/hashtag/' );
+					data[i].contentText = this.replaceAt(   data[i].contentText, 'https://www.facebook.com/' );
+				}
+
 			}
 
 			// Twitter
@@ -120,10 +129,19 @@ SocialWall.prototype = {
 				this.twitterPostCount++;
 				data[i].postNum = this.twitterPostCount;
 				data[i].userName = data[i].user.name || null;
+				data[i].pubDate = data[i].user.created_at ? new Date(data[i].user.created_at) : null;
 				data[i].postHref = 'https://twitter.com/' + data[i].user.screen_name + '/status/' + data[i].id_str;
 				data[i].contentText = data[i].text || null;
 				data[i].imgSrc = !!(data[i].entities.media && data[i].entities.media[0].media_url) ? data[i].entities.media[0].media_url : null;
 				data[i].isVideo = (data[i].kind === 'video');
+
+				// Add anchors to content
+				if (data[i].contentText) {
+					data[i].contentText = this.replaceURL(  data[i].contentText );
+					data[i].contentText = this.replaceHash( data[i].contentText, 'https://twitter.com/search?q=%23' );
+					data[i].contentText = this.replaceAt(   data[i].contentText, 'https://twitter.com/' );
+				}
+
 			}
 
 			// Instagram
@@ -131,10 +149,19 @@ SocialWall.prototype = {
 				this.instagramPostCount++;
 				data[i].postNum = this.instagramPostCount;
 				data[i].userName = data[i].user.full_name || null;
+				data[i].pubDate = data[i].caption.created_time ? new Date(parseInt(data[i].caption.created_time) * 1000) : null;
 				data[i].postHref = data[i].link;
 				data[i].contentText = data[i].caption.text || null;
 				data[i].imgSrc = data[i].images.low_resolution.url || null;
 				data[i].isVideo = (data[i].type === 'video');
+
+				// Add anchors to content
+				if (data[i].contentText) {
+					data[i].contentText = this.replaceURL(  data[i].contentText );
+					data[i].contentText = this.replaceHash( data[i].contentText, 'http://instagram.com/' );
+					data[i].contentText = this.replaceAt(   data[i].contentText, 'http://instagram.com/' );
+				}
+
 			}
 
 			// Pinterest
@@ -143,18 +170,63 @@ SocialWall.prototype = {
 				this.pinterestPostCount++;
 				data[i].postNum = this.pinterestPostCount;
 				data[i].userName = data[i].author || null;
+				data[i].pubDate = data[i].pub_date ? new Date(data[i].pub_date) : null;
 				data[i].postHref = data[i].link;
 				data[i].contentText = $(data[i].description).text() || null;
 				data[i].imgSrc = $(data[i].description).find('img').attr('src') || null;
 				data[i].isVideo = (data[i].kind === 'video');
+
+				// Add anchors to content
+				if (data[i].contentText) {
+					data[i].contentText = this.replaceURL(  data[i].contentText );
+					data[i].contentText = this.replaceHash( data[i].contentText, 'https://www.pinterest.com/search/?q=' );
+					data[i].contentText = this.replaceAt(   data[i].contentText, 'https://www.pinterest.com/' );
+				}
+
 			}
 
-			// console.log(data[i].isVideo);
+			// console.log(data[i]);
 
 		}
 
 		this.render(data);
 
+	},
+
+	/**
+	 * function to replace text urls with anchor
+	 * @param  {string} stringToParse - a string representing the string we want to replace
+	 * @return {string} - a new string value with text replaced
+	 */
+	replaceURL: function(stringToParse) {
+		var urlRegEx = /(https?:\/\/[^\s]+)/gi; 
+		var newString = ' <a href="$1" target="_blank" title="opens in a new window">$1</a>';
+		var result = stringToParse.replace(urlRegEx, newString);
+		return result;
+	},
+
+	/**
+	 * function to replace hashtags (#) with url
+	 * @param  {string} stringToParse - a string representing the string we want to replace
+	 * @return {string} - a new string value with text replaced
+	 */
+	replaceHash: function(stringToParse, baseURL) {
+		var hashRegEx = /(^|\s)(#)([a-z\d_-][\w-]*)/gi; 
+		var newString = ' <a href="' + baseURL + '$3" target="_blank" title="opens in a new window">$2$3</a>';
+		var result = stringToParse.replace(hashRegEx, newString);
+		return result;
+	},
+
+	/**
+	 * function to replace at symbol (@) with url
+	 * @param  {string} stringToParse - a string representing the string we want to replace
+	 * @return {string} - a new string value with text replaced
+	 */
+	replaceAt: function(stringToParse, baseURL) {
+		var hashRegEx = /(^|\s)(\@)([a-z\d_-][\w-]*)/gi;
+		var newString = ' <a href="' + baseURL + '$3" target="_blank" title="opens in a new window">$2$3</a>';
+		var result = stringToParse.replace(hashRegEx, newString);
+		return result;
 	},
 
 	render: function(data) {

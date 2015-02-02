@@ -1,5 +1,5 @@
 {{#each items}}
-	<div class="grid-cell post-{{network}} loading" data-id="{{id}}">
+	<article class="grid-cell post-{{network}} loading" data-id="{{id}}">
 
 
 		{{!-- Begin Facebook --}}
@@ -11,7 +11,8 @@
 				target="_blank" title="Facebook post {{postNum}}{{#if userName}} by {{userName}}{{/if}} - opens in a new window"></a>
 
 			<div class="content">
-				{{#if contentText}}<p>{{contentText}}</p>{{/if}}
+				{{#if pubDate}}<span class="date">{{pubDate}}</span>{{/if}}
+				{{#if contentText}}<p>{{{contentText}}}</p>{{/if}}
 				<div class="cta">
 					<a class="action-icon icon-comment" target="_blank"
 						title="Comment on Facebook post - opens in a new window"
@@ -44,7 +45,8 @@
 				target="_blank" title="Twitter post {{postNum}}{{#if userName}} by {{userName}}{{/if}} - opens in a new window"></a>
 
 			<div class="content">
-				{{#if contentText}}<p>{{contentText}}</p>{{/if}}
+				{{#if pubDate}}<span class="date">{{pubDate}}</span>{{/if}}
+				{{#if contentText}}<p>{{{contentText}}}</p>{{/if}}
 				<div class="cta">
 					<a class="action-icon icon-reply" target="_blank"
 						title="Reply to Twitter post - opens in a new window"
@@ -80,7 +82,8 @@
 				target="_blank" title="Instagram post {{postNum}}{{#if userName}} by {{userName}}{{/if}} - opens in a new window"></a>
 
 			<div class="content">
-				{{#if contentText}}<p>{{contentText}}</p>{{/if}}
+				{{#if pubDate}}<span class="date">{{pubDate}}</span>{{/if}}
+				{{#if contentText}}<p>{{{contentText}}}</p>{{/if}}
 				<div class="cta">
 					<a class="action-icon icon-like" target="_blank"
 						title="Like Instagram post - opens in a new window"
@@ -110,7 +113,8 @@
 				target="_blank" title="Pinterest post {{postNum}}{{#if userName}} by {{userName}}{{/if}} - opens in a new window"></a>
 
 			<div class="content">
-				{{#if contentText}}<p>{{contentText}}</p>{{/if}}
+				{{#if pubDate}}<span class="date">{{pubDate}}</span>{{/if}}
+				{{#if contentText}}<p>{{{contentText}}}</p>{{/if}}
 			</div>
 
 			{{#if imgSrc}}
@@ -126,5 +130,5 @@
 		{{!-- End Pinterest --}}
 
 
-	</div>
+	</article>
 {{/each}}
