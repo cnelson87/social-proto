@@ -2,12 +2,18 @@
  * Application Config
  */
 
+if (!window.location.origin) {
+	window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+}
+
 var AppConfig = {
 
-	isIE9: navigator.userAgent.indexOf('MSIE 9') != -1,
+	siteUrl: window.location.origin,
+	isIE9: navigator.userAgent.indexOf('MSIE 9') !== -1,
+	hasFormValidation: typeof document.createElement('input').checkValidity === 'function',
+	hasTouch: Modernizr.touch,
 
-	// dataUrl: 'http://api.massrelevance.com/ZachHenault/coffee.json',
-	dataUrl: 'http://api.massrelevance.com/ill_adelphia/john-deere.json',
+	dataUrl: 'https://api.massrelevance.com/DummyTGT/abv-homepage.json',
 	dataLimit: 6
 
 };

@@ -19,7 +19,7 @@
 */
 
 var AjaxGet					= require('utilities/AjaxGet');
-var templateSocialItems 	= require('../../templates/social-items.hbs');
+var templateSocialItems 	= require('templates/social-items.hbs');
 
 var SocialWall = function ($el, objOptions) {
 

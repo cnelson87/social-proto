@@ -1,12 +1,12 @@
 
 // configuration
-@import "config/vars";
-@import "config/mixins";
+@import "./config/variables";
+@import "./config/mixins";
 
 // global styles
-@import "global/base";
-@import "global/utils";
-@import "global/layout";
+@import "./global/base";
+@import "./global/utilities";
+@import "./global/layout";
 
 // specific views
-@import "views/social";
+@import "./views/social";

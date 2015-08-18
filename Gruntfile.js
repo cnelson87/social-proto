@@ -51,10 +51,15 @@ module.exports = function(grunt) {
 		'browserify': {
 			compile: {
 				src: '<%= sourceScripts %>/initialize.js',
-				dest: '<%= outputScripts %>/social-wall.js',
+				dest: '<%= outputScripts %>/<%= pkgName %>.js',
 				options: {
 					preBundleCB: function(b) {
 						b.plugin(remapify, [
+							{
+								cwd: './src/templates',
+								src: './**/*.hbs',
+								expose: 'templates'
+							},
 							{
 								cwd: './src/scripts/config',
 								src: './**/*.js',
@@ -72,8 +77,8 @@ module.exports = function(grunt) {
 							}
 						]);
 					},
-					transform: ['browserify-handlebars'],
 					browserifyOptions: {
+						extensions: ['.hbs'],
 						fullPaths: false
 					},
 					debug: true
@@ -104,12 +109,13 @@ module.exports = function(grunt) {
 		// Concatenate files
 		'concat': {
 			options: {
-				separator: '\n;\n'
+				separator: '\n\n'
 			},
 			libs: {
 				src: [
 					'<%= sourceVendor %>/modernizr.custom.min.js',
 					'<%= sourceVendor %>/jquery.min.js',
+					'<%= sourceVendor %>/underscore.min.js',
 					'<%= sourceVendor %>/masonry.pkgd.min.js',
 					'<%= sourceVendor %>/imagesloaded.pkgd.min.js'
 				],
@@ -121,16 +127,16 @@ module.exports = function(grunt) {
 		'jshint': {
 			options: {
 				globals: {
-					$: true,
-					_: true,
-					jQuery: true,
-					Modernizr: true,
-					alert: true,
-					console: true,
-					document: true,
-					module: true,
-					require: true,
-					window: true
+					'alert': true,
+					'console': true,
+					'document': true,
+					'module': true,
+					'require': true,
+					'window': true,
+					'Modernizr': true,
+					'jQuery': true,
+					'$': true,
+					'_': true
 				}
 			},
 			files: [
@@ -146,7 +152,21 @@ module.exports = function(grunt) {
 				},
 				files: [{
 					src: '<%= sourceStyles %>/styles.scss',
-					dest: '<%= outputStyles %>/social-wall.css'
+					dest: '<%= outputStyles %>/<%= pkgName %>.css'
+				}]
+			}
+		},
+
+		// Add vendor-prefixed CSS properties
+		'autoprefixer': {
+			compile: {
+				options: {
+					browsers: ['last 2 versions', 'ie 9'],
+					map: true
+				},
+				files: [{
+					src: '<%= outputStyles %>/<%= pkgName %>.css',
+					dest: '<%= outputStyles %>/<%= pkgName %>.css'
 				}]
 			}
 		},
@@ -171,7 +191,7 @@ module.exports = function(grunt) {
 			},
 			styles: {
 				files: '<%= sourceStyles %>/**/*.scss',
-				tasks: ['sass']
+				tasks: ['sass', 'autoprefixer']
 			},
 			templates: {
 				files: '<%= sourceTemplates %>/**/*.hbs',
@@ -184,6 +204,7 @@ module.exports = function(grunt) {
 
 
 	// Load task dependencies
+	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-connect');
@@ -194,7 +215,7 @@ module.exports = function(grunt) {
 	
 
 	// Register custom tasks
-	grunt.registerTask('build', ['copy', 'sass', 'concat', 'jshint', 'browserify']);
+	grunt.registerTask('build', ['copy', 'sass', 'autoprefixer', 'concat', 'jshint', 'browserify']);
 	grunt.registerTask('run', ['build', 'connect', 'watch']);
 
 

@@ -6,7 +6,7 @@
 
 var AppConfig				= require('config/AppConfig');
 var SocialWall				= require('widgets/SocialWall');
-//var templateSocialItems 	= require('../templates/social-items.hbs');
+// var templateSocialItems 	= require('templates/social-items.hbs');
 
 
 var Application = {

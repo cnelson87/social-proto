@@ -1,15 +1,22 @@
-/*
-/* LAYOUT
-/*-----------------------------------------------------*/
+//
+// LAYOUT
+// -----------------------------------------------------
 
-html {
-	height: 100%;
+
+html, body {
+	width: 100%;
+	max-width: 100%;
 	min-height: 100%;
+	overflow-x: hidden;
 }
 
-body {
-	//height: 100%;
+#wrapper {
+	width: 100%;
+	min-width: $min-width;
+	height: 100%;
 	min-height: 100%;
+	margin: 0 auto;
+	padding: $header-height 0 $footer-height 0;
 	position: relative;
 }
 
@@ -18,7 +25,6 @@ body {
 	height: $header-height;
 	background: #454545;
 	border-bottom: 20px solid #fff;
-	box-sizing: border-box;
 	position: fixed;
 	left: 0;
 	right: 0;
@@ -28,7 +34,6 @@ body {
 	> .header-inner {
 		width: 100%;
 		height: 100%;
-		box-sizing: border-box;
 		margin: 0 auto;
 		position: relative;
 	}
@@ -40,8 +45,7 @@ body {
 	height: $footer-height;
 	background: #000;
 	border-top: 20px solid #fff;
-	box-sizing: border-box;
-	position: absolute;
+	position: fixed;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -50,7 +54,6 @@ body {
 	> .footer-inner {
 		width: 100%;
 		height: 100%;
-		box-sizing: border-box;
 		margin: 0 auto;
 		padding: 20px 0 0 0;
 		position: relative;
@@ -61,8 +64,6 @@ body {
 #content {
 	width: 100%;
 	height: 100%;
-	box-sizing: border-box;
-	padding: $header-height 0 $footer-height 0;
 	position: relative;
 	z-index: 1;
 
@@ -70,33 +71,44 @@ body {
 		width: 100%;
 		height: 100%;
 		min-height: calc(100vh - #{($header-height + $footer-height)}); //viewport height - header & footer
-		//min-height: 100vh;
-		box-sizing: border-box;
 		margin: 0 auto;
-		padding: 60px 0;
+		padding: 60px 16px;
 		position: relative;
+		@include clearfix();
 	}
 
 }
 
 
-@include respond-to(tablet) {
+// Mobile
+@media (max-width: $mobile-max) {
 
 	#header > .header-inner,
 	#footer > .footer-inner,
 	#content > .content-inner {
-		width: $tablet-width;
+		max-width: $mobile-container-max-width;
 	}
 
 }
 
-
-@include respond-to(desktop) {
+// Tablet
+@media (min-width: $tablet-min) and (max-width: $tablet-max) {
 
 	#header > .header-inner,
 	#footer > .footer-inner,
 	#content > .content-inner {
-		width: $desktop-width;
+		width: $tablet-container-width;
+	}
+
+}
+
+// Desktop
+@media (min-width: $desktop-min) {
+
+	#header > .header-inner,
+	#footer > .footer-inner,
+	#content > .content-inner {
+		width: $desktop-container-width;
 	}
 
 }
