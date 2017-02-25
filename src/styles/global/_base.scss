@@ -3,7 +3,7 @@
 // -----------------------------------------------------
 
 
-*, *:before, *:after {
+*, *::before, *::after {
 	box-sizing: border-box;
 }
 
@@ -44,13 +44,13 @@ body {
 	// font-size: 87.5%; //14px
 	// font-size: 75.0%; //12px
 	// font-size: 62.5%; //10px
-	line-height: 1.5;
+	line-height: 1.5; //24px
 	background: #eee;
 
 	// Tablet+
 	@media (min-width: $tablet-min) {
-		font-size: 75.0%; //12px
-		line-height: 1.5; //18px
+		font-size: 87.5%; //14px
+		line-height: 1.5; //21px
 	}
 
 }
@@ -142,8 +142,8 @@ sup {top: -0.5em;}
 sub {bottom: -0.25em;}
 
 blockquote, q {quotes: none;}
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote::before, blockquote::after,
+q::before, q::after {
 	content: '';
 	content: none;
 }

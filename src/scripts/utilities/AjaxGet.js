@@ -1,15 +1,20 @@
 /**
- *	returns an Ajax GET request using deferred, url is required, dataType & crossDomain are optional.
- *  @return: json, html, text
+ * ajaxGet
+ * @author: Chris Nelson <cnelson87@gmail.com>
+ * @description: Returns an Ajax GET request using deferred.
+ * @param: url is required, dataType & data are optional.
+ * @return: json, html, text
  */
 
-var AjaxGet = function(url, dataType, crossDomain) {
+const ajaxGet = function(url, dataType, crossDomain, data) {
+	if (!url) {return;}
 	return $.ajax({
 		type: 'GET',
 		url: url,
 		dataType: dataType || 'json',
-		crossDomain: crossDomain || false
+		crossDomain: crossDomain || false,
+		data: data || null
 	});
 };
 
-module.exports = AjaxGet;
+export default ajaxGet;

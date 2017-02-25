@@ -1,15 +1,12 @@
 /**
- * Application Module
- * 
- * @author Chris Nelson
+ * Application
+ * @author: Chris Nelson <cnelson87@gmail.com>
  */
 
-var AppConfig				= require('config/AppConfig');
-var SocialWall				= require('widgets/SocialWall');
-// var templateSocialItems 	= require('templates/social-items.hbs');
+import AppConfig from 'config/AppConfig';
+import SocialWall from 'widgets/SocialWall';
 
-
-var Application = {
+const Application = {
 
 	initialize: function() {
 		//console.log('Application:initialize');
@@ -18,6 +15,10 @@ var Application = {
 		this.$body = $('body');
 
 		if (AppConfig.isIE9) {this.$html.addClass('ie9');}
+		if (AppConfig.isIE10) {this.$html.addClass('ie10');}
+		if (AppConfig.isIE11) {this.$html.addClass('ie11');}
+		if (AppConfig.isAndroid) {this.$html.addClass('android');}
+		if (AppConfig.isIOS) {this.$html.addClass('ios');}
 
 		new SocialWall($('#social-app'), {dataUrl: AppConfig.dataUrl, dataLimit: AppConfig.dataLimit});
 
@@ -25,4 +26,6 @@ var Application = {
 
 };
 
-module.exports = Application;
+window.Application = Application;
+
+export default Application;

@@ -1,15 +1,13 @@
 /**
- * Application Initializer
- * 
- * @author Chris Nelson
+ * initialize
  */
 
-var HbsHelpers				= require('config/HandlebarsHelpers');
-var Application				= require('./Application');
+import 'babel-polyfill';
 
-$(function() {
-	// Register Custom Handlebars Helpers
-	new HbsHelpers();
-	// Initialize Application
+import handlebarsHelpers from 'config/handlebarsHelpers';
+import Application from './Application.js';
+
+document.addEventListener('DOMContentLoaded', function(event) {
+	handlebarsHelpers();
 	Application.initialize();
 });

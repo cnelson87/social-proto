@@ -18,8 +18,8 @@
 
 */
 
-var AjaxGet					= require('utilities/AjaxGet');
-var templateSocialItems 	= require('templates/social-items.hbs');
+import ajaxGet from 'utilities/AjaxGet';
+import templateSocialItems from 'templates/SocialItems.hbs';
 
 var SocialWall = function ($el, objOptions) {
 
@@ -89,7 +89,7 @@ SocialWall.prototype = {
 			dataUrl += '&start_id=' + this.startId;
 		}
 
-		$.when(AjaxGet(dataUrl, 'jsonp', true)).done(function(response) {
+		$.when(ajaxGet(dataUrl, 'jsonp', true, null)).done(function(response) {
 			//console.log(response);
 			this.processData(response);
 		}.bind(this)).fail(function() {
@@ -255,4 +255,4 @@ SocialWall.prototype = {
 
 };
 
-module.exports = SocialWall;
+export default SocialWall;

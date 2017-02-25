@@ -3,11 +3,18 @@ module.exports = function(grunt) {
 
 	'use strict';
 
-	var path			= require('path');
-	var cwd				= process.cwd();
-	var pkg				= grunt.file.readJSON('package.json');
-	var remapify		= require('remapify');
+	var path = require('path');
+	var cwd = process.cwd();
+	var pkg = grunt.file.readJSON('package.json');
+	var pathmodify = require('pathmodify');
 
+
+	var paths = [
+		pathmodify.mod.dir('config', path.join(__dirname, './src/scripts/config')),
+		pathmodify.mod.dir('utilities', path.join(__dirname, './src/scripts/utilities')),
+		pathmodify.mod.dir('widgets', path.join(__dirname, './src/scripts/widgets')),
+		pathmodify.mod.dir('templates', path.join(__dirname, './src/templates'))
+	];
 
 	// Project configuration.
 	grunt.initConfig({
@@ -29,10 +36,10 @@ module.exports = function(grunt) {
 		sourceVendor	: '<%= sourcePath %>/vendor',
 		// output file paths
 		sitePath		: './public',
-		outputAssets	: '<%= sitePath %>/_ui',
-		outputImages	: '<%= outputAssets %>/img',
-		outputScripts	: '<%= outputAssets %>/js',
-		outputStyles	: '<%= outputAssets %>/css',
+		outputAssets	: '<%= sitePath %>/_assets',
+		outputImages	: '<%= outputAssets %>/images',
+		outputScripts	: '<%= outputAssets %>/scripts',
+		outputStyles	: '<%= outputAssets %>/styles',
 
 
 		// Start a connect web server
@@ -40,8 +47,8 @@ module.exports = function(grunt) {
 			dev: {
 				options: {
 					hostname: '*',
-					port: '<%= portNum %>',
 					base: '<%= sitePath %>/',
+					port: '<%= portNum %>',
 					livereload: '<%= lrPortNum %>'
 				}
 			}
@@ -49,40 +56,24 @@ module.exports = function(grunt) {
 
 		// Compile javascript modules
 		'browserify': {
-			compile: {
-				src: '<%= sourceScripts %>/initialize.js',
-				dest: '<%= outputScripts %>/<%= pkgName %>.js',
-				options: {
-					preBundleCB: function(b) {
-						b.plugin(remapify, [
-							{
-								cwd: './src/templates',
-								src: './**/*.hbs',
-								expose: 'templates'
-							},
-							{
-								cwd: './src/scripts/config',
-								src: './**/*.js',
-								expose: 'config'
-							},
-							{
-								cwd: './src/scripts/utilities',
-								src: './**/*.js',
-								expose: 'utilities'
-							},
-							{
-								cwd: './src/scripts/widgets',
-								src: './**/*.js',
-								expose: 'widgets'
-							}
-						]);
-					},
-					browserifyOptions: {
-						extensions: ['.hbs'],
-						fullPaths: false
-					},
-					debug: true
+			options: {
+				transform: ['browserify-handlebars', ['babelify', {presets: ['latest']}]],
+				configure: function(b) {
+					b.plugin(pathmodify, {mods: paths});
+				},
+				browserifyOptions: {
+					extensions: ['.hbs'],
+					fullPaths: false
 				}
+			},
+			compile: {
+				options: {
+					debug: true
+				},
+				files: [{
+					src: '<%= sourceScripts %>/initialize.js',
+					dest: '<%= outputScripts %>/<%= pkgName %>.js'
+				}]
 			}
 		},
 
@@ -115,9 +106,9 @@ module.exports = function(grunt) {
 				src: [
 					'<%= sourceVendor %>/modernizr.custom.min.js',
 					'<%= sourceVendor %>/jquery.min.js',
-					'<%= sourceVendor %>/underscore.min.js',
 					'<%= sourceVendor %>/masonry.pkgd.min.js',
-					'<%= sourceVendor %>/imagesloaded.pkgd.min.js'
+					'<%= sourceVendor %>/imagesloaded.pkgd.min.js',
+					'<%= sourceVendor %>/underscore.min.js'
 				],
 				dest: '<%= outputScripts %>/vendor.js'
 			}
@@ -126,6 +117,8 @@ module.exports = function(grunt) {
 		// JS Linting using jshint
 		'jshint': {
 			options: {
+				// esnext: true,
+				esversion: 6,
 				globals: {
 					'alert': true,
 					'console': true,
@@ -136,7 +129,9 @@ module.exports = function(grunt) {
 					'Modernizr': true,
 					'jQuery': true,
 					'$': true,
-					'_': true
+					'_': true,
+					'Masonry': true,
+					'Application': true
 				}
 			},
 			files: [
@@ -161,7 +156,7 @@ module.exports = function(grunt) {
 		'autoprefixer': {
 			compile: {
 				options: {
-					browsers: ['last 2 versions', 'ie 9'],
+					browsers: ['last 5 versions', 'ie 9'],
 					map: true
 				},
 				files: [{

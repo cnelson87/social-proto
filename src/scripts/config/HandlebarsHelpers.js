@@ -1,7 +1,7 @@
 
 var Handlebars = require('handlebars/runtime')['default'];
 
-var HandlebarsHelpers = function(){
+const handlebarsHelpers = function(){
 /* jshint ignore:start */
 
 	/**
@@ -18,30 +18,37 @@ var HandlebarsHelpers = function(){
 	 * Compare a value
 	 * @return {[type]} [description]
 	 */
-	Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
+	Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {
+
+		var operators, result;
 
 		if (arguments.length < 3) {
-			throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+			throw new Error("Handlebars Helper 'compare' needs 2 parameters");
 		}
 
-		operator = options.hash.operator || "==";
-
-		var operators = {
-			'==':       function(l,r) { return l == r; },
-			'===':      function(l,r) { return l === r; },
-			'!=':       function(l,r) { return l != r; },
-			'<':        function(l,r) { return l < r; },
-			'>':        function(l,r) { return l > r; },
-			'<=':       function(l,r) { return l <= r; },
-			'>=':       function(l,r) { return l >= r; },
-			'typeof':   function(l,r) { return typeof l == r; }
+		if (options === undefined) {
+			options = rvalue;
+			rvalue = operator;
+			operator = "===";
 		}
+
+		operators = {
+			'==': function (l, r) { return l == r; },
+			'===': function (l, r) { return l === r; },
+			'!=': function (l, r) { return l != r; },
+			'!==': function (l, r) { return l !== r; },
+			'<': function (l, r) { return l < r; },
+			'>': function (l, r) { return l > r; },
+			'<=': function (l, r) { return l <= r; },
+			'>=': function (l, r) { return l >= r; },
+			'typeof': function (l, r) { return typeof l == r; }
+		};
 
 		if (!operators[operator]) {
-			throw new Error("Handlerbars Helper 'compare' doesn't know the operator "+operator);
+			throw new Error("Handlebars Helper 'compare' doesn't know the operator " + operator);
 		}
 
-		var result = operators[operator](lvalue,rvalue);
+		result = operators[operator](lvalue, rvalue);
 
 		if (result) {
 			return options.fn(this);
@@ -54,4 +61,4 @@ var HandlebarsHelpers = function(){
 /* jshint ignore:end */
 };
 
-module.exports = HandlebarsHelpers;
+export default handlebarsHelpers;

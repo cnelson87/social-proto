@@ -1,14 +1,14 @@
-/*
-/* SOCIAL
-/*-----------------------------------------------------*/
+//
+// SOCIAL
+// -----------------------------------------------------
 
 
 .social-listing {
+	@include clearfix();
 	width: 100%;
 	max-width: 480px;
-	margin: 0 auto 20px auto;
+	margin: 0 auto 20px;
 	position: relative;
-	@include clearfix();
 
 	a.social-icon {
 		display: inline-block;
@@ -64,8 +64,8 @@
 	> .grid-cell {
 		float: left;
 		width: 100%;
-		background: #fff;
-		margin: 0 0 20px 0;
+		background: $white;
+		margin: 0 0 20px;
 		position: relative;
 
 		&.loading {
@@ -73,10 +73,9 @@
 		}
 
 		> h3:first-child {
-			width: 100%;
-			//height: 1px;
-			position: absolute;
 			@include hidetext();
+			width: 100%;
+			position: absolute;
 		}
 
 		> a.social-icon {
@@ -86,13 +85,13 @@
 		}
 
 		> div.content {
-			padding: 12px 16px 20px 16px;
+			padding: 12px 16px 20px;
 			> span.date {
 				display: block;
 				color: $text-light;
 				font-size: 10px;
 				line-height: 12px;
-				margin: 0 0 12px 0;
+				margin: 0 0 12px;
 			}
 			> p {
 				color: $text-primary;
@@ -100,7 +99,7 @@
 				line-height: 16px;
 				font-weight: bold;
 				text-overflow: ellipsis;
-				margin: 0 0 16px 0;
+				margin: 0 0 16px;
 				overflow-x: hidden;
 			}
 			> div.cta {
@@ -113,7 +112,6 @@
 		}
 
 		> div.media {
-			//margin-top: -8px;
 			> a {
 				display: block;
 				position: relative;
@@ -122,8 +120,8 @@
 					width: 100%;
 					height: auto;
 				}
-				&.video:after {
-					content: "";
+				&.video::after {
+					content: '';
 					display: block;
 					width: 100%;
 					height: 100%;
@@ -132,7 +130,7 @@
 					top: 0;
 					background: url('#{$image-path}/btn-play.png') no-repeat center center;
 				}
-				&.video:hover:after, &.video:focus:after {
+				&.video:hover::after, &.video:focus::after {
 					opacity: 0.8;
 				}
 			}
@@ -148,7 +146,7 @@
 	display: block;
 	width: 100%;
 	max-width: 480px;
-	color: #fff;
+	color: $white;
 	font-family: Arial, sans-serif;
 	font-weight: bold;
 	font-size: 10px;
@@ -165,8 +163,8 @@
 		background: #bbb;
 	}
 
-	&:after {
-		content: "";
+	&::after {
+		content: '';
 		display: inline-block;
 		width: 10px;
 		height: 8px;
@@ -183,7 +181,7 @@
 		max-width: 100%;
 		.grid-cell {
 			width: 300px;
-			margin: 0 10px 20px 10px;
+			margin: 0 10px 20px;
 		}
 	}
 	.btn-load-more {
